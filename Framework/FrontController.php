@@ -65,8 +65,10 @@ class FrontController
 
         $f = $this->ns . '\\' . $this->controller;
         $newController = new $f();
-        var_dump($newController);
-        $newController->($this->method);
+        echo $this->controller;
+
+        echo $this->method;
+        $newController->{$this->method};
     }
 
     public function getDefaultController() {

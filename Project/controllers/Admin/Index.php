@@ -12,4 +12,8 @@ class Index
     public function index2() {
         echo "eCommera";
     }
+
+    public function default_method(){
+        echo "asdasd";
+    }
 }
