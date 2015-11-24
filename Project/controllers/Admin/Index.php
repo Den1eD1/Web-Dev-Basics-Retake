@@ -9,11 +9,11 @@
 namespace Controllers\Admin;
 class Index
 {
-    public function index2() {
+    public function index() {
         echo "eCommera";
     }
 
-    public function default_method(){
+    public function default_Method(){
         echo "asdasd";
     }
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Web-Dev-Basics-Retake/.idea/PHPRetakeExam.iml" filepath="$PROJECT_DIR$/../Web-Dev-Basics-Retake/.idea/PHPRetakeExam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Web-Dev-Basics-Retake.iml" filepath="$PROJECT_DIR$/.idea/Web-Dev-Basics-Retake.iml" />
     </modules>
   </component>
 </project>

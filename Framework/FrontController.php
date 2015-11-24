@@ -17,6 +17,7 @@ class FrontController
     {
         $a = new \Framework\Routers\DefaultRouter();
         $_uri = $a->getURI();
+
         $routes = \Framework\App::getInstance()->getConfig()->routes;
         $_rc = null;
         if (is_array($routes) && count($routes) > 0) {
@@ -41,10 +42,9 @@ class FrontController
 
         $_params = explode('/', $_uri);
         if ($_params[0]) {
-            $this->controller = $_params[0];
-
+            $this->controller = strtolower($_params[0]);
             if ($_params[1]) {
-                $this->method = $_params[1];
+                $this->method = strtolower($_params[1]);
             } else {
                 $this->method = $this->getDefaultMethod();
              }
@@ -52,29 +52,28 @@ class FrontController
             $this->controller = $this->getDefaultController();
             $this->method = $this->getDefaultMethod();
         }
-        if(is_array($_rc) && $_rc['controllers'] && $_rc['controllers'][$this->controller]['to']) {
-            if($_rc['controllers'][$this->controller]['methods'][$this->method]){
-                $this->method = $_rc['controllers'][$this->controller]['methods'][$this->method];
+        if(is_array($_rc) && $_rc['controllers']) {
+            if($_rc['controllers'][$this->controller]['methods'][$this->method]) {
+                $this->method = strtolower($_rc['controllers'][$this->controller]['method'][$this->method]);
             }
-            $this->controller = $_rc['controllers'][$this->controller]['to'];
-        }
-        //TODO: This work stinks... Find another method for testing
-        //echo $this->ns . '<br>';
-        //echo $this->controller . "<br>";
-        //echo $this->method;
 
-        $f = $this->ns . '\\' . $this->controller;
+            if($_rc['controllers'][$this->controller]['to']) {
+                $this->controller = strtolower($_rc['controllers'][$this->controller]['to']);
+            }
+        }
+
+        $f = $this->ns . "\\". ucfirst($this->controller);
         $newController = new $f();
-        echo $this->controller;
+        $newController->{$this->method}();
+        echo $this->controller . "<br>";
 
         echo $this->method;
-        $newController->{$this->method};
     }
 
     public function getDefaultController() {
         $controller = \Framework\App::getInstance()->getConfig()->app['default_controller'];
         if($controller) {
-            return $controller;
+            return strtolower($controller);
         }
         return 'Index';
     }
@@ -82,7 +81,7 @@ class FrontController
     public function getDefaultMethod() {
         $method = \Framework\App::getInstance()->getConfig()->app['default_method'];
         if($method) {
-            return $method;
+            return strtolower($method);
         }
         return 'Index';
     }
